@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--application.yml 传递参数，不能使用logback 自带的<property>标签 -->
+    <springProperty scope="context" name="appname" source="logging.appname"/>
+    <springProperty scope="context" name="baseDir" source="logging.path"/>
+
+    <!-- 日志上下文名称 -->
+    <contextName>${appname}</contextName>
+    <!-- 日志输出目录 -->
+    <!--<property name="baseDir" value="/Users/hetao/Downloads/spring-boot-logs"/>-->
+    <!-- 设置日志输出信息输出格式,如: "14:46:11.981 hmp INFO  [custom.java.template.App:11] - Hello World!" -->
+    <property name="log_format" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName %p %t %c - %line|%m%n"/>
+    <!-- 日志名称 -->
+    <property name="log_name" value="${appname}"/>
+
+    <!-- 配置logback控制台日志输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>${log_format}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 根据策略生成相关日志文件 -->
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${baseDir}/${log_name}-%d{yyyy-MM-dd}-%i.log.zip</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>100MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 日志内容格式设置 -->
+        <encoder>
+            <pattern>${log_format}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 控制日志输出级别 -->
+    <root>
+        <level value="INFO"/> <!--ALL,TRACE,DEBUG,INFO,WARN,ERROR,FATAL,OFF-->
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="rollingFile"/>
+    </root>
+</configuration>
+

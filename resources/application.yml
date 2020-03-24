@@ -1,0 +1,26 @@
+# Server settings
+server:
+  port: 8001
+logging:
+  appname: demo
+  path: /opt/logs
+  config: classpath:logging-logback.xml
+# SPRING PROFILES
+spring:
+  # HTTP ENCODING
+  http:
+    encoding.charset: UTF-8
+    encoding.enable: true
+    encoding.force: true
+management:  
+  health:
+    defaults:
+      enabled: false
+  port: 8100
+  security:  
+    enabled: false # spring-boot 1.5.2之后严格执行安全策略，所以需要配置这个为false  
+info: #定义各种额外的详情给服务端显示  
+  version: "@project.version@"  
+  app:  demo
+  
+  
