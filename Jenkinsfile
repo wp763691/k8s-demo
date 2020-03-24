@@ -54,12 +54,12 @@ node {
             sh 'rm -rf *.jar'
             sh 'cp target/*.jar app.jar'
             if (env.CURRENT_BRANCH.endsWith('master')) {
-                docker.withRegistry("http://192.168.0.201:80", "docker-registry") {
+                docker.withRegistry("http://192.168.0.201:80", "harbor") {
                 def customImage = docker.build("192.168.0.201:80/pro/k8s-demo:${env.BUILD_VERSION}")
                 customImage.push()
             	}
             } else {
-                docker.withRegistry("http://192.168.0.201:80", "docker-registry") {
+                docker.withRegistry("http://192.168.0.201:80", "harbor") {
                 def customImage = docker.build("192.168.0.201:80/pro/k8s-demo:${env.BUILD_VERSION}")
                 customImage.push()
             	}
