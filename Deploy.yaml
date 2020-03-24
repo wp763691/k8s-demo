@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: k8s-demo
-        image: 192.168.0.201:80/pro/k8s-demo:0.0.1
+        image: 192.168.0.201:80/pro/k8s-demo:0.0.0.1
         ports:
         - containerPort: 8001
           protocol: TCP
@@ -25,16 +25,8 @@ spec:
           value: "java -XX:+UseG1GC -Xmx600m -Xms32m -Djava.security.egd=file:/dev/./urandom -jar /app.jar"
         - name: logging_path
           value: "/logs/${HOSTNAME}"
-        volumeMounts:
-        - name: logs-vol
-          mountPath: /logs
-      volumes:
-      - name: logs-vol
-        hostPath:
-          path: /logs
-          type: Directory
       imagePullSecrets:
-      - name: docker-registry-1
+      - name: registry-secret
 
 ---
 apiVersion: v1
