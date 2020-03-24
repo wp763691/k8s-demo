@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-demo
+  namespace: pro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      syn-app: k8s-demo
+  template:
+    metadata:
+      labels:
+        syn-app: k8s-demo
+    spec:
+      containers:
+      - name: k8s-demo
+        image: 192.168.0.201:80/pro/k8s-demo:0.0.1
+        ports:
+        - containerPort: 8001
+          protocol: TCP
+        env:
+        - name: APP_RUN
+          value: "java -XX:+UseG1GC -Xmx600m -Xms32m -Djava.security.egd=file:/dev/./urandom -jar /app.jar"
+        - name: logging_path
+          value: "/logs/${HOSTNAME}"
+        volumeMounts:
+        - name: logs-vol
+          mountPath: /logs
+      volumes:
+      - name: logs-vol
+        hostPath:
+          path: /logs
+          type: Directory
+      imagePullSecrets:
+      - name: docker-registry-1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-demo
+  namespace: pro
+spec:
+  ports:
+  - port: 8001
+    targetPort: 8001
+  selector:
+    syn-app: k8s-demo
