@@ -8,11 +8,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      syn-app: k8s-demo
+      app: k8s-demo
   template:
     metadata:
       labels:
-        syn-app: k8s-demo
+        app: k8s-demo
+        version: 0.0.0.1
     spec:
       containers:
       - name: k8s-demo
@@ -39,4 +40,4 @@ spec:
   - port: 8001
     targetPort: 8001
   selector:
-    syn-app: k8s-demo
+    app: k8s-demo
