@@ -26,6 +26,7 @@ spec:
           value: "java -XX:+UseG1GC -Xmx600m -Xms32m -Djava.security.egd=file:/dev/./urandom -jar /app.jar"
         - name: logging_path
           value: "/logs/${HOSTNAME}"
+      imagePullPolicy: Always
       imagePullSecrets:
       - name: registry-secret
 
