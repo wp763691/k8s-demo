@@ -17,7 +17,7 @@ public class DemoController {
 		try {
 			String data1 = HttpRequestUtil.sendData("GET", url);
 			String data2 = HttpRequestUtil.sendData("GET", url2);
-			return "v1: " + data1 + " " + data2;
+			return "v2: " + data1 + " " + data2;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

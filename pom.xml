@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.k8s</groupId>
 	<artifactId>k8s-demo</artifactId>
-	<version>0.0.0.1</version>
+	<version>0.0.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>k8s-user</name>
