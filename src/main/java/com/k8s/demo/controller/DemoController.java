@@ -12,16 +12,16 @@ public class DemoController {
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String getUser() {
-		String url = "http://k8s-user:8000/user/demo1";
-		String url2 = "http://k8s-user.pro.svc.cluster.local:8000/user/demo2";
+//		String url = "http://k8s-user:8000/user/demo1";
+//		String url2 = "http://k8s-user.pro.svc.cluster.local:8000/user/demo2";
 		try {
-			String data1 = HttpRequestUtil.sendData("GET", url);
-			String data2 = HttpRequestUtil.sendData("GET", url2);
-			return "v2: " + data1 + " " + data2;
+//			String data1 = HttpRequestUtil.sendData("GET", url);
+//			String data2 = HttpRequestUtil.sendData("GET", url2);
+//			return "v2: " + data1 + " " + data2;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "";
+		return "this is test!";
 	}
 
 }
