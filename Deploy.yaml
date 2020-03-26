@@ -1,3 +1,22 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: k8s-demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-demo
+  namespace: pro
+  labels:
+    app: k8s-demo
+spec:
+  ports:
+  - name: http
+    port: 8001
+    targetPort: 8001
+  selector:
+    app: k8s-demo
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -9,18 +28,19 @@ spec:
   selector:
     matchLabels:
       app: k8s-demo
+      version: 0.0.0.1
   template:
     metadata:
       labels:
         app: k8s-demo
         version: 0.0.0.1
     spec:
+      serviceAccountName: k8s-demo
       containers:
       - name: k8s-demo
         image: 192.168.0.201:80/pro/k8s-demo:0.0.0.1
         ports:
         - containerPort: 8001
-          protocol: TCP
         env:
         - name: APP_RUN
           value: "java -XX:+UseG1GC -Xmx600m -Xms32m -Djava.security.egd=file:/dev/./urandom -jar /app.jar"
@@ -29,16 +49,3 @@ spec:
       imagePullPolicy: Always
       imagePullSecrets:
       - name: registry-secret
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: k8s-demo
-  namespace: pro
-spec:
-  ports:
-  - port: 8001
-    targetPort: 8001
-  selector:
-    app: k8s-demo

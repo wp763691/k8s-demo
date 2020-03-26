@@ -21,7 +21,7 @@ public class DemoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "this is test!";
+		return "demo-v1";
 	}
 
 }
