@@ -21,19 +21,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-demo
+  name: k8s-demo-v1
   namespace: pro
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: k8s-demo
-      version: 0.0.0.1
+      version: v1
   template:
     metadata:
       labels:
         app: k8s-demo
-        version: 0.0.0.1
+        version: v1
     spec:
       serviceAccountName: k8s-demo
       containers:
